@@ -22,6 +22,31 @@ body {
 }
 #jumbo-text {
     padding: 20px 20px 20px 20px;
-    color: rgba(0, 0, 0, 0.9);
     font-size: 30px;
+}
+.jumbotron {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/piano.jpg');
+    background-size: cover;
+    padding: 170px;
+    transition: all 1.5s;
+}
+.jumbotron:hover{
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../images/piano.jpg');
+    transform: scale(1.05);
+    color: rgba( 255, 255, 255, 0.8 );
+}
+
+
+#jumbo-text {
+    padding: 5px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9);
+    background-color: #ffffff;
+    background-color: rgba( 255, 255, 255, 0.5 );
+}
+.jumbotron:hover > #jumbo-text,
+#jumbo-text:hover {
+     color: rgba( 255, 255, 255, 0.9 );
+    background-color: #ffffff;
+    background-color: rgba( 0, 0, 0, 0 );
 }
