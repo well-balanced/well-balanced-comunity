@@ -9,8 +9,8 @@
         <script src="https://kit.fontawesome.com/8c88212ad2.js" crossorigin="anonymous"></script>
     </head>
     <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="/">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -18,32 +18,32 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="art.html">Art</a>
+        <a class="nav-link{{#if art}} active {{/if}}" href="art.hbs">Art</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="music.html">Music</a>
+        <a class="nav-link{{#if music}} active {{/if}}" href="music.hbs">Music</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sports
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="football.html">Football</a>
-          <a class="dropdown-item" href="basketball.html">Basketball</a>
-          <a class="dropdown-item" href="training.html">Training</a>
-          <a class="dropdown-item" href="ridingBike.html">Riding Bike</a>
+          <a class="dropdown-item{{#if football}} active {{/if}}" href="football.hbs">Football</a>
+          <a class="dropdown-item{{#if basketball}} active {{/if}}" href="basketball.hbs">Basketball</a>
+          <a class="dropdown-item{{#if training}} active {{/if}}" href="training.hbs">Training</a>
+          <a class="dropdown-item{{#if ridingBike}} active {{/if}}" href="ridingBike.hbs">Riding Bike</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pet.html">Pet</a>
+        <a class="nav-link{{#if pet}} active {{/if}}" href="pet.hbs">Pet</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="english.html">English</a>
+        <a class="nav-link{{#if english}} active {{/if}}" href="english.hbs">English</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="travel.html">Travel</a>
+        <a class="nav-link{{#if travel}} active {{/if}}" href="travel.hbs">Travel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"> Share life style each other</a>
@@ -57,14 +57,14 @@
     
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link fas fa-lock fa-lg" href="loginForm.html">
+        <a class="nav-link fas fa-lock fa-lg" href="loginForm.hbs">
         </a>
     </li>
     </ul>
   </div>
 </nav>
 
-
+{{{ body }}}
 
 <!-- Footer -->
 <footer class="page-footer font-small cyan darken-3">
@@ -108,7 +108,25 @@
 
 </footer>
 <!-- Footer -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="../../js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script>
+$(function() {
+  $('#login-form-link2').click(function(e) {
+  $('#register-form').attr('style','display:none')
+  $('#login-form').attr('style','display:block')
+  $('.register-form').attr('class','login-form')
+  e.preventDefault();
+  });
+  $('#register-form-link').click(function(e) {
+  $('#login-form').attr('style','display:none')
+  $('#register-form').attr('style','display:block')
+  $('#register-form-link2').text('Complete');
+  $('.login-form').attr('class','register-form')
+  e.preventDefault();
+  });
+});
+</script>
+        {{!-- {{> loginFunction}} --}}
     </body>
 </html>
