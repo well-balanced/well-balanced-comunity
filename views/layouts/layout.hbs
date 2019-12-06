@@ -18,32 +18,32 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link{{#if art}} active {{/if}}" href="art.hbs">Art</a>
+        <a class="nav-link{{#if art}} active {{/if}}" href="/art">Art</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if music}} active {{/if}}" href="music.hbs">Music</a>
+        <a class="nav-link{{#if music}} active {{/if}}" href="music">Music</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sports
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item{{#if football}} active {{/if}}" href="football.hbs">Football</a>
-          <a class="dropdown-item{{#if basketball}} active {{/if}}" href="basketball.hbs">Basketball</a>
-          <a class="dropdown-item{{#if training}} active {{/if}}" href="training.hbs">Training</a>
-          <a class="dropdown-item{{#if ridingBike}} active {{/if}}" href="ridingBike.hbs">Riding Bike</a>
+          <a class="dropdown-item{{#if football}} active {{/if}}" href="football">Football</a>
+          <a class="dropdown-item{{#if basketball}} active {{/if}}" href="basketball">Basketball</a>
+          <a class="dropdown-item{{#if training}} active {{/if}}" href="training">Training</a>
+          <a class="dropdown-item{{#if ridingBike}} active {{/if}}" href="ridingBike">Riding Bike</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if pet}} active {{/if}}" href="pet.hbs">Pet</a>
+        <a class="nav-link{{#if pet}} active {{/if}}" href="pet">Pet</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if english}} active {{/if}}" href="english.hbs">English</a>
+        <a class="nav-link{{#if english}} active {{/if}}" href="english">English</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if travel}} active {{/if}}" href="travel.hbs">Travel</a>
+        <a class="nav-link{{#if travel}} active {{/if}}" href="travel">Travel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"> Share life style each other</a>
@@ -57,13 +57,13 @@
     
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link fas fa-lock fa-lg" href="loginForm.hbs">
+        <a class="nav-link fas fa-lock fa-lg" href="loginForm">
         </a>
     </li>
     </ul>
   </div>
 </nav>
-
+<br><br><br><br>
 {{{ body }}}
 
 <!-- Footer -->
@@ -110,23 +110,6 @@
 <!-- Footer -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../../js/bootstrap.js"></script>
-    <script>
-$(function() {
-  $('#login-form-link2').click(function(e) {
-  $('#register-form').attr('style','display:none')
-  $('#login-form').attr('style','display:block')
-  $('.register-form').attr('class','login-form')
-  e.preventDefault();
-  });
-  $('#register-form-link').click(function(e) {
-  $('#login-form').attr('style','display:none')
-  $('#register-form').attr('style','display:block')
-  $('#register-form-link2').text('Complete');
-  $('.login-form').attr('class','register-form')
-  e.preventDefault();
-  });
-});
-</script>
-        {{!-- {{> loginFunction}} --}}
+    <script src="../../js/loginFunction.js"></script>
     </body>
 </html>
