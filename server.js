@@ -1,21 +1,3 @@
-// const http = require('http');
-// const fs = require('fs');
-
-
-// const server = http.createServer((request,response)=>{
-//     if (request.url === '/') {
-//         fs.readFile('./static/template/index.html','utf-8', (err,data)=>{
-//             response.writeHead(200, {
-//                 'Content-Type':'text/html'
-//             })
-//             response.write(data);
-//             response.end();
-//         })
-//     }
-// })
-
-// server.listen(3000);
-
 const express = require('express'); 
 const app = express();
 const hbs = require('express-handlebars');
