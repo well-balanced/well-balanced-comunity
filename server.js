@@ -3,6 +3,9 @@ const app = express();
 const hbs = require('express-handlebars');
 const qs = require('querystring');
 const fs = require('fs')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
 
 app.engine('hbs',hbs({
     extname:'hbs',
@@ -27,26 +30,25 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/art', (req, res)=>{
-    fs.readdir('./data/art/',(err,files)=>{
+    fs.readdir('./views/art/',(err,files)=>{
         if(err){
             console.log(err)
-        } else {
-            for (var i=0; i<files.length; i++){
-                var fileList = ''
-                file = files[i]
-                fileList = fileList + `<li>${file}</li>`   
-            }
-            res.render('art', {
-                art: true,
-                postList:fileList
-            })
-        }
+        } 
+        res.render('art', {
+            art: true,
+            postList: files
+        })
     })
 })
+
+
+
+
 app.get('/art/post', (req,res)=>{
     res.render('postArt')
 })
 app.post('/art/create_process', (req,res)=>{
+    console.log(req.body)
     res.render('success')
     var body
     req.on('data',(data)=>{

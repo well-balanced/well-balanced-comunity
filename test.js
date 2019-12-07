@@ -5,7 +5,7 @@ fs.readdir('./data/art/',(err,files)=>{
         console.log(err)
     } else {
         for (var i=0; i<files.length; i++){
-            var fileList = ''
+            var fileList = 
             fileList = fileList + '<li>'+files[i]+'</li>'
             
       }

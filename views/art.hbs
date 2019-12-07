@@ -1,3 +1,4 @@
-{{postList}}
-
+{{#each postList}}
+    <li><a href='art/{{@index}}{{index}}'>{{this}}</a></li>
+{{/each}}
 <a href="art/post/">create</a>
