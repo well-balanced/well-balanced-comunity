@@ -57,7 +57,7 @@
     
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="nav-link fas fa-lock fa-lg" href="loginForm">
+        <a class="nav-link fas fa-lock fa-lg" href="../../loginForm">
         </a>
     </li>
     </ul>
@@ -65,7 +65,8 @@
 </nav>
 <br><br><br><br>
 {{{ body }}}
-
+{{#if postDetailOfArt}}<p><a href="/art/edit/{{index}}">update</a></p>{{/if}}
+{{#if postDetailOfArt}}<p><a href="/delete/art/{{index}}">delete</a></p>{{/if}}
 <!-- Footer -->
 <footer class="page-footer font-small cyan darken-3">
 
