@@ -1,0 +1,17 @@
+const express = require('express');
+const router = express.Router();
+const controller = require('./art.controller');
+
+router.get('/', controller.index)
+
+router.get('/:id', controller.show)
+
+router.get('/post', controller.create)
+
+router.post('/:id', controller.update)
+
+router.get('/delete/:id', controller.destroy)
+
+router.get('/edit/:id', controller.getEditView)
+
+module.exports = router;
