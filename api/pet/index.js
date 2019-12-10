@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./art.controller');
+const controller = require('./pet.controller');
 
 router.get('/', controller.index)
 
-router.get('/:id', controller.show)
-
 router.get('/post', controller.create)
+
+router.get('/:id', controller.show)
 
 router.post('/:id', controller.update)
 

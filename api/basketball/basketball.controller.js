@@ -1,36 +1,36 @@
 const fs = require('fs')
 
 exports.index = (req,res) => {
-    fs.readdir('./views/artList/',(err,files)=>{
+    fs.readdir('./views/basketballList/',(err,files)=>{
         fileList = []
         for (var i=0; i<files.length; i++){
             file = files[i]
             file = file.split('.')
             fileList[i] = file[0]
         }
-        res.render('art', {
+        res.render('basketball', {
             postList: fileList,
-            subject: 'art'
+            subject:'basketball'
         })
     })
 }
 
 exports.show = (req,res) => {
-    fs.readdir('./views/artList',(err,data)=>{
-        res.render('artList/'+data[req.params.id],{
+    fs.readdir('./views/basketballList',(err,data)=>{
+        res.render('basketballList/'+data[req.params.id],{
             post:true,
-            subject:'art',
+            subject:'basketball',
             index:req.params.id
         })
     })
 }
 
 exports.create = (req,res) => {
-    fs.readdir('./views/artList',(err,files)=>{
+    fs.readdir('./views/basketballList',(err,files)=>{
         files = files.length
         res.render('new',{
             write:true,
-            subject:'art',
+            subject:'basketball',
             id: files,
         })
     })
@@ -42,14 +42,14 @@ exports.update = (req,res) => {
         return res.status(400).send('제목에 특수문자 ㄴㄴ')
     }
     if(req.body.id){
-        fs.renameSync(`views/artList/${req.body.id}.hbs`,`views/artList/${req.body.title}.hbs`)
+        fs.renameSync(`views/basketballList/${req.body.id}.hbs`,`views/basketballList/${req.body.title}.hbs`)
     }
     // else if(req.body.title)
-    fs.writeFile(`views/artList/${req.body.title}.hbs`,req.body.description,'utf8',()=>{
-        fs.readdir('views/artLIst',(err,data)=>{
-            res.render(`artList/${req.body.title}`,{
+    fs.writeFile(`views/basketballList/${req.body.title}.hbs`,req.body.description,'utf8',()=>{
+        fs.readdir('views/basketballLIst',(err,data)=>{
+            res.render(`basketballList/${req.body.title}`,{
             post:true,
-            subject:'art',
+            subject:'basketball',
             index:req.params.id,
             })
         })
@@ -58,20 +58,20 @@ exports.update = (req,res) => {
 
 exports.destroy = (req,res) => {
     id=req.params.id
-    fs.readdir('views/artList/',(err,files)=>{
-        fs.unlink('views/artList/'+files[id],(err)=>{
-            res.redirect('/art')
+    fs.readdir('views/basketballList/',(err,files)=>{
+        fs.unlink('views/basketballList/'+files[id],(err)=>{
+            res.redirect('/basketball')
         })
     })
 }
 
 exports.getEditView = (req,res) => {
-    fs.readdir('./views/artList/',(err,files)=>{
-        fs.readFile('./views/artList/'+files[req.params.id],'utf8',(err,description)=>{
+    fs.readdir('./views/basketballList/',(err,files)=>{
+        fs.readFile('./views/basketballList/'+files[req.params.id],'utf8',(err,description)=>{
             file = files[req.params.id].split('.')
             res.render('edit',{
                 write:true,
-                subject:'art',
+                subject:'basketball',
                 title:file[0],
                 description:description,
                 id:req.params.id
