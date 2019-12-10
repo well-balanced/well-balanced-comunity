@@ -1,4 +1,6 @@
-const fs = require('fs')
+const fs = require('fs');
+const session = require('express-session');
+
 
 exports.index = (req,res) => {
     fs.readdir('./views/artList/',(err,files)=>{
@@ -10,7 +12,9 @@ exports.index = (req,res) => {
         }
         res.render('art', {
             postList: fileList,
-            subject: 'art'
+            subject: 'art',
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -20,7 +24,9 @@ exports.show = (req,res) => {
         res.render('artList/'+data[req.params.id],{
             post:true,
             subject:'art',
-            index:req.params.id
+            index:req.params.id,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -32,6 +38,8 @@ exports.create = (req,res) => {
             write:true,
             subject:'art',
             id: files,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -51,6 +59,8 @@ exports.update = (req,res) => {
             post:true,
             subject:'art',
             index:req.params.id,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
             })
         })
     })
@@ -74,7 +84,9 @@ exports.getEditView = (req,res) => {
                 subject:'art',
                 title:file[0],
                 description:description,
-                id:req.params.id
+                id:req.params.id,
+                loginedUser: req.session.loginedUser,
+                username: req.session.username
             })
         })
     })

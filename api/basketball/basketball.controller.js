@@ -10,7 +10,9 @@ exports.index = (req,res) => {
         }
         res.render('basketball', {
             postList: fileList,
-            subject:'basketball'
+            subject:'basketball',
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -20,7 +22,9 @@ exports.show = (req,res) => {
         res.render('basketballList/'+data[req.params.id],{
             post:true,
             subject:'basketball',
-            index:req.params.id
+            index:req.params.id,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -32,6 +36,8 @@ exports.create = (req,res) => {
             write:true,
             subject:'basketball',
             id: files,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
         })
     })
 }
@@ -51,6 +57,8 @@ exports.update = (req,res) => {
             post:true,
             subject:'basketball',
             index:req.params.id,
+            loginedUser: req.session.loginedUser,
+            username: req.session.username
             })
         })
     })
@@ -74,7 +82,9 @@ exports.getEditView = (req,res) => {
                 subject:'basketball',
                 title:file[0],
                 description:description,
-                id:req.params.id
+                id:req.params.id,
+                loginedUser: req.session.loginedUser,
+                username: req.session.username
             })
         })
     })

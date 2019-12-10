@@ -18,32 +18,32 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link{{#if art}} active {{/if}}" href="../art">Art</a>
+        <a class="nav-link{{#if art}} active {{/if}}" href="../../art">Art</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if music}} active {{/if}}" href="../music">Music</a>
+        <a class="nav-link{{#if music}} active {{/if}}" href="../../music">Music</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sports
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item{{#if football}} active {{/if}}" href="../football">Football</a>
-          <a class="dropdown-item{{#if basketball}} active {{/if}}" href="../basketball">Basketball</a>
-          <a class="dropdown-item{{#if training}} active {{/if}}" href="../training">Training</a>
-          <a class="dropdown-item{{#if ridingBike}} active {{/if}}" href="../ridingBike">Riding Bike</a>
+          <a class="dropdown-item{{#if football}} active {{/if}}" href="../../football">Football</a>
+          <a class="dropdown-item{{#if basketball}} active {{/if}}" href="../../basketball">Basketball</a>
+          <a class="dropdown-item{{#if training}} active {{/if}}" href="../../training">Training</a>
+          <a class="dropdown-item{{#if ridingBike}} active {{/if}}" href="../../ridingBike">Riding Bike</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if pet}} active {{/if}}" href="../pet">Pet</a>
+        <a class="nav-link{{#if pet}} active {{/if}}" href="../../pet">Pet</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if english}} active {{/if}}" href="../english">English</a>
+        <a class="nav-link{{#if english}} active {{/if}}" href="../../english">English</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link{{#if travel}} active {{/if}}" href="../travel">Travel</a>
+        <a class="nav-link{{#if travel}} active {{/if}}" href="../../travel">Travel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"> Share life style each other</a>
@@ -55,15 +55,15 @@
       
     </ul>
     
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" id="profile">
     <li class="nav-item">
-        <a class="nav-link fas fa-lock fa-lg" href="../../loginForm">
-        </a>
+        {{#if loginedUser}}<a class="nav-link" href="#">{{username}} </a>&nbsp;&nbsp;&nbsp;<a class="nav-link fas fa-lock-open fa-lg" href="#"></a>
+        {{else}}<a class="nav-link fas fa-lock fa-lg" href="../../login"></a>{{/if}}
     </li>
     </ul>
   </div>
 </nav>
-<br><br><br><br>
+<br><br><br><br><br><br>
 {{{ body }}}
 <p>
   {{#if post}}<a href="/{{subject}}/edit/{{index}}">update</a>{{/if}}
