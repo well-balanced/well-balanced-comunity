@@ -1,17 +1,28 @@
-const fs = require('fs');
-
-fs.readdir('./data/art/',(err,files)=>{
-    if(err){
-        console.log(err)
-    } else {
-        for (var i=0; i<files.length; i++){
-            var fileList = 
-            fileList = fileList + '<li>'+files[i]+'</li>'
-            
-      }
+let users = [
+    {
+      id: 309,
+      name: 'Woosik'
+    },
+    {
+      id: 329,
+      name: 'Hoseon'
+    },
+    {
+      id: 310,
+      name: 'Hyeonsu'
     }
-})
+]
+var name = 'Hakjune'
+const id = users.reduce((maxId,user)=>{
+    console.log(maxId)
+    return user.id>maxId ? user.id : maxId
+},0)+1;
 
-fs.writeFile('./data/fileName','test','utf8', (err)=>{
-    console.log(err)
-})
+const newUser = {
+    id:id,
+    name:name
+};
+
+users.push(newUser);
+
+console.log(users)

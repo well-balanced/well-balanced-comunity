@@ -8,21 +8,8 @@ const router = express.Router();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/users', require('./api/users'));
 
-let users = [
-    {
-      id: 1,
-      name: 'alice'
-    },
-    {
-      id: 2,
-      name: 'bek'
-    },
-    {
-      id: 3,
-      name: 'chris'
-    }
-]
 
 app.engine('hbs',hbs({
     extname:'hbs',
