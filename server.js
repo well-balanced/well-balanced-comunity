@@ -4,6 +4,8 @@ const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session)
+const passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 
 app.use(bodyParser.json());
@@ -15,6 +17,8 @@ app.use(session({
     saveUninitialized: true,
     store : new FileStore('./sessions')
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/users', require('./api/users/index'));
 app.use('/art', require('./api/art/index'));
 app.use('/music', require('./api/music/index'));
@@ -34,27 +38,42 @@ app.engine('hbs',hbs({
 }));
 app.set('view engine', 'hbs');
 
-
+const getLoginStatus = (user)=>{
+    if(user){
+        return true;
+    }
+}
+const getUserName = (name)=>{
+    var username = name;
+    return username
+}
 app.get('/', (req, res)=>{
+    if(req.user){
+        var loginedUser = getLoginStatus(req.user);
+        var username = getUserName(req.user.username);
+    }
     res.render('index',{
         index: true,
-        loginedUser: req.session.loginedUser,
-        username: req.session.username
+        loginedUser: loginedUser,
+        username: username
     })
 })
 
-let users = [
+var users = [
     {
+        fullname:'Woosik Kim',
         email: 'woosik',
         password:123,
         username: 'woosik'
     },
     {
+        fullname:'Woosik Kim',
         email: 'cosmian',
         password:123,
         username: 'cosmian'
     }
 ]
+
 
 app.get('/login', (req, res)=>{
     res.render('loginForm', {
@@ -63,21 +82,54 @@ app.get('/login', (req, res)=>{
 
 app.get('/logout',(req,res)=>{
     req.session.destroy((err)=>{
-        res.redirect('/')
+        res.redirect('/');
     })
 })
 
+app.post('/login',(req,res,next)=>{
+if(req.body.fullname){
+    var userInfo = {
+        fullname : req.body.fullname,
+        email : req.body.email,
+        password : req.body.password,
+        username : req.body.username
+    }
+    users.push(userInfo)
+    console.log(users)
+}
+next()
+},
+  passport.authenticate('local', 
+    { successRedirect: '/',
+    failureRedirect: '/login' }));
+passport.use(new LocalStrategy(
+    {
+        usernameField:'email',
+    },
+    function(username, password, done) {
+        for(var i=0; i<users.length; i++){
+            if(username==users[i].email && password==users[i].password){
+                return done(null,users[i]);
+            }
+        }
+        return done(null,false,{message:'Incorrect E-mail or Password.'})
+    }
+));
 
-app.post('/login', (req, res)=>{
-    for (var i=0; i<users.length; i++){
-        if(req.body.email == users[i].email && req.body.password == users[i].password){
-            req.session.loginedUser = true;
-            req.session.username = users[i].username;
-            res.redirect('/');
+var test = (user,done)=>{
+    for(var i=0; i<users.lenth; i++){
+        if(user.email==users[i].email){
+            return done(null, users[i].email);
         }
     }
-    res.redirect('/login')
-})
+}
+passport.serializeUser(function(user, done) {
+    done(null,user)
+  });
+  
+passport.deserializeUser(function(id, done) {
+    done(null, id);
+});
 
 
 app.listen(3000,()=> {

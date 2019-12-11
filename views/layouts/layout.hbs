@@ -66,8 +66,8 @@
 <br><br><br><br><br><br>
 {{{ body }}}
 <p>
-  {{#if post}}<a href="/{{subject}}/edit/{{index}}">update</a>{{/if}}
-  {{#if post}}<a href="/{{subject}}/delete/{{index}}">delete</a>{{/if}}
+  {{#if loginedUser}}{{#if post}}<a href="/{{subject}}/edit/{{index}}">update</a>{{/if}}{{/if}}
+  {{#if loginedUser}}{{#if post}}<a href="/{{subject}}/delete/{{index}}">delete</a>{{/if}}{{/if}}
   {{#if post}}<a href="/{{subject}}">back</a>{{/if}}
 </p>
 <!-- Footer -->
