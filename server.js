@@ -61,13 +61,19 @@ app.get('/login', (req, res)=>{
     })
 })
 
+app.get('/logout',(req,res)=>{
+    req.session.destroy((err)=>{
+        res.redirect('/')
+    })
+})
+
 
 app.post('/login', (req, res)=>{
     for (var i=0; i<users.length; i++){
         if(req.body.email == users[i].email && req.body.password == users[i].password){
             req.session.loginedUser = true;
             req.session.username = users[i].username;
-            res.redirect('/')
+            res.redirect('/');
         }
     }
     res.redirect('/login')
