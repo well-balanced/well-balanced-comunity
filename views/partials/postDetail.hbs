@@ -1,0 +1,17 @@
+    <button id="back-button" class="btn btn-secondary mb-2" onclick="location.href='../../{{subject}}'">Back : Posts</button>
+   <form id="post-form">
+        <input type="hidden" name="author" value={{username}}>
+        <input type="hidden" name="subject" value={{subject}}>
+    <div class="form-group">
+        <input type="hidden" name="id" value="{{title}}">
+        <label for="exampleFormControlInput1">Title</label>
+        <input type="text" name="title"class="form-control" id="exampleFormControlInput1"  value="{{title}}" disabled>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea name="description"class="form-control" id="exampleFormControlTextarea1"  rows="8" disabled>{{description}}
+        </textarea>
+    </div>
+    </form>
+{{#if loginedUser}}{{#if post}}<button class="btn btn-dark mb-2" onclick="location.href='/{{subject}}/edit/{{index}}'">UPDATE</button>{{/if}}{{/if}}
+{{#if loginedUser}}{{#if post}}<button class="btn btn-dark mb-2" onclick="location.href='/{{subject}}/delete/{{index}}'">DELETE</button>{{/if}}{{/if}}

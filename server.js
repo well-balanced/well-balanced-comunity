@@ -6,6 +6,18 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session)
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+
+// db.defaults({ posts: [], users: []})
+//   .write()
+// db.get('posts')
+//   .remove({ author:'well-balanced' })
+//   .write()
+
+
 
 
 app.use(bodyParser.json());
@@ -47,6 +59,8 @@ const getUserName = (name)=>{
     var username = name;
     return username
 }
+
+
 app.get('/', (req, res)=>{
     if(req.user){
         var loginedUser = getLoginStatus(req.user);
@@ -59,43 +73,49 @@ app.get('/', (req, res)=>{
     })
 })
 
-var users = [
-    {
-        fullname:'Woosik Kim',
-        email: 'woosik',
-        password:123,
-        username: 'woosik'
-    },
-    {
-        fullname:'Woosik Kim',
-        email: 'cosmian',
-        password:123,
-        username: 'cosmian'
-    }
-]
-
 
 app.get('/login', (req, res)=>{
     res.render('loginForm', {
     })
 })
 
-app.get('/logout',(req,res)=>{
+app.get('/logout',async(req,res)=>{
+    db.get('posts').find({'author': req.user.username}).assign({host:false}).write()
     req.session.destroy((err)=>{
         res.redirect('/');
     })
 })
 
+const getUser = (email,callback) => {
+    var user = db.get('users')
+    .find({"email":email})
+    .value()
+    callback(user)
+}
+
+const addUser = (req, callback) => {
+    getUser(req.body.email,(user)=>{
+        if(user){
+            user = false;
+            callback(user)
+        } 
+        else{
+            db.get('users')
+        .push({ 
+            fullname : req.body.fullname,
+            email : req.body.email,
+            password : req.body.password,
+            username : req.body.username})
+        .write()
+        }
+    })
+}
+
 app.post('/login',(req,res,next)=>{
 if(req.body.fullname){
-    var userInfo = {
-        fullname : req.body.fullname,
-        email : req.body.email,
-        password : req.body.password,
-        username : req.body.username
-    }
-    users.push(userInfo)
-    console.log(users)
+    addUser(req,(user)=>{
+        console.log(user)
+    })
 }
 next()
 },
@@ -106,23 +126,20 @@ passport.use(new LocalStrategy(
     {
         usernameField:'email',
     },
-    function(username, password, done) {
-        for(var i=0; i<users.length; i++){
-            if(username==users[i].email && password==users[i].password){
-                return done(null,users[i]);
+    function(email, password, done) {
+        getUser(email,(user)=>{
+            if(!user){
+                return done(null,false,{message:'Incorrect E-mail or Password.'})
             }
-        }
-        return done(null,false,{message:'Incorrect E-mail or Password.'})
+            else if(email==user.email && password==user.password){
+                return done(null,user);
+            }
+            return done(null,false,{message:'Incorrect E-mail or Password.'})
+        });
     }
 ));
 
-var test = (user,done)=>{
-    for(var i=0; i<users.lenth; i++){
-        if(user.email==users[i].email){
-            return done(null, users[i].email);
-        }
-    }
-}
+
 passport.serializeUser(function(user, done) {
     done(null,user)
   });

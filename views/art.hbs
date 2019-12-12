@@ -1,4 +1,18 @@
-{{#each postList}}
-    <li><a href='{{@root.subject}}/{{@index}}'>{{this}}</a></li>
+<div class="container">
+    {{#if loginedUser}}<button class="btn btn-dark mb-2" onclick="location.href='{{subject}}/post/'">Create</button>{{/if}}
+<div class="row justify-content-md-center">
+{{#each posts}}
+    <article class="card" style="width: 18rem; height:15rem;" id="post-card">
+      <div class="card-body">
+        <h5 class="card-title" id="card-title">{{this.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{this.author}}<br></h6>
+        <p class="card-text" id="card-description">{{this.description}}<br><br><br></p>
+        <button class="btn btn-dark mb-2" onclick="location.href='{{@root.subject}}/{{@index}}'">View</button>
+        {{#if this.host}}
+        <button class="btn btn-dark mb-2" onclick="location.href='/{{subject}}/edit/{{@index}}'">Update</button>
+        <button class="btn btn-dark mb-2" onclick="location.href='/{{subject}}/delete/{{@index}}'">Delete</button>{{/if}}
+      </div>
+    </article>
 {{/each}}
-{{#if loginedUser}}<a href="{{subject}}/post/">create</a>{{/if}}
+</div>
+</div>

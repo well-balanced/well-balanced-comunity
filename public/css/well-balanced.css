@@ -15,7 +15,7 @@ body {
     background-color: #F8F9FA;
 }
 .navbar {
-    padding-bottom: 30px;
+    padding-bottom: 16px;
 }
 #social{
     padding-left: 30px;
@@ -129,4 +129,31 @@ body {
 }
 .register-form{
   margin-top: 80px;
+}
+
+#back-button{
+    margin: 10px;
+}
+
+#post-form {
+    margin: 50px;
+    margin-top: 0;
+}
+
+#card-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+#card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;   
+}
+
+#post-card {
+    margin: 16px;
 }

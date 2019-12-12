@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "author": "well-balanced",
+      "title": "Top 10 Programming Languages for Engineers",
+      "description": "1",
+      "subject": "art",
+      "id": "gh1lLDyI",
+      "host": true
+    },
+    {
+      "author": "woody",
+      "title": "what is 'HTML' ?",
+      "description": "123\r\n    askfklasfak  askfklasfak  askfklasfak  askfklasfak  askfklasfak  askfklasfak",
+      "subject": "art",
+      "id": "3wZPqhbP",
+      "host": true
+    },
+    {
+      "author": "woody",
+      "title": "what is 'HTML' ?",
+      "description": "123",
+      "subject": "art",
+      "id": "QdjWgVdp",
+      "host": false
+    }
+  ],
+  "users": [
+    {
+      "fullname": "Woosik Kim",
+      "email": "softkey95@gmail.com",
+      "password": "softkei7&",
+      "username": "well-balanced"
+    },
+    {
+      "fullname": "Woosik Kim",
+      "email": "softkey95@gmail.com1",
+      "password": "123",
+      "username": "well-balanced"
+    },
+    {
+      "fullname": "Woosik Kim",
+      "email": "softkey95@gmail.com12",
+      "password": "123",
+      "username": "well-balanced"
+    }
+  ]
+}

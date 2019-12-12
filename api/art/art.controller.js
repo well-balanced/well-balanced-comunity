@@ -1,93 +1,176 @@
 const fs = require('fs');
 const session = require('express-session');
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+const shortid = require('shortid');
 
-
+const getUserInfo = (req,callback)=>{
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+    } else {
+        var username = false;
+    }
+    callback(loginedUser,username)
+}
 exports.index = (req,res) => {
-    fs.readdir('./views/artList/',(err,files)=>{
-        fileList = []
-        for (var i=0; i<files.length; i++){
-            file = files[i]
-            file = file.split('.')
-            fileList[i] = file[0]
-        }
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+        console.log(username)
+    } else {
+        var username = false;
+        console.log(username)
+    }
+    getPost(req,(posts)=>{
+        checkHost(username);
         res.render('art', {
-            postList: fileList,
+            posts : posts,
             subject: 'art',
-            loginedUser: req.session.loginedUser,
-            username: req.session.username
+            loginedUser: loginedUser,
+            username: username,
         })
     })
 }
+const getPostList = (req,callback) => {
+    var posts = db.get('posts')
+    .map('title')
+    .value();
+    var descriptions = db.get('posts')
+    .map('description')
+    .value();
+    var authors = db.get('posts')
+    .map('author')
+    .value();
+    callback(posts,descriptions,authors)
+}
 
 exports.show = (req,res) => {
-    fs.readdir('./views/artList',(err,data)=>{
-        res.render('artList/'+data[req.params.id],{
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+    } else {
+        var username = false;
+    }
+    getPost(req,(post)=>{
+        res.render('partials/postDetail',{
             post:true,
             subject:'art',
             index:req.params.id,
-            loginedUser: req.session.loginedUser,
-            username: req.session.username
+            loginedUser: loginedUser,
+            username: username,
+            title: post[req.params.id].title,
+            description: post[req.params.id].description
         })
     })
 }
 
 exports.create = (req,res) => {
-    fs.readdir('./views/artList',(err,files)=>{
-        files = files.length
-        res.render('new',{
-            write:true,
-            subject:'art',
-            id: files,
-            loginedUser: req.session.loginedUser,
-            username: req.session.username
-        })
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+    } else {
+        var username = false;
+    }
+    var postSize = db.get('posts').size().value()
+    res.render('new',{
+        write:true,
+        subject:'art',
+        id: postSize,
+        loginedUser: loginedUser,
+        username: username,
     })
 }
+const getPost = (req,callback) => {
+    var posts = db.get('posts')
+    .value()
+    callback(posts)
+}
+const addPost = (req) => {
+    db.get('posts')
+    .push(
+        {   author: req.body.author, 
+            title: req.body.title, 
+            description:req.body.description,
+            subject:req.body.subject,
+            id:shortid.generate(),
+            host:false
+        }
+        )
+    .write();   
+}
+const checkHost = (username) => {
+    if(username){
+        db.get('posts').find({'author': username}).assign({host:true}).write()
+    }
+    // for(var i=0; i<posts.lenth; i++) {
+    //     if(username==posts[i].author){
+    //         db.get('posts').find({'host': true}).assign({host:false}).write()
+    //     }
+    // }
+}
+const updatePost = (req) => {
+    db.get('posts')
+    .find({ title: req.body.id })
+    .assign({ title: req.body.title, description: req.body.description})
+    .write()
+}  
 
-exports.update = (req,res) => {
-    var special_pattern = /[`~!.@#$%^&*|\\\'\";:\/?]/gi;
-    if(special_pattern.test(req.body.title)==true){
-        return res.status(400).send('제목에 특수문자 ㄴㄴ')
+const removePost = (req) => {
+    var sid = db.get(`posts[${req.params.id}].id`).value()
+    db.get('posts')
+    .remove({id:sid})
+    .write()
+}
+
+  exports.update = (req,res) => {
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+    } else {
+        var username = false;
     }
     if(req.body.id){
-        fs.renameSync(`views/artList/${req.body.id}.hbs`,`views/artList/${req.body.title}.hbs`)
+        updatePost(req); 
+    } else {
+        addPost(req);
     }
-    // else if(req.body.title)
-    fs.writeFile(`views/artList/${req.body.title}.hbs`,req.body.description,'utf8',()=>{
-        fs.readdir('views/artLIst',(err,data)=>{
-            res.render(`artList/${req.body.title}`,{
-            post:true,
-            subject:'art',
-            index:req.params.id,
-            loginedUser: req.session.loginedUser,
-            username: req.session.username
-            })
-        })
+    res.render('./partials/postDetail',{
+        post:true,
+        subject:'art',
+        index:req.params.id,
+        loginedUser: loginedUser,
+        username: username,
+        title:req.body.title,
+        description:req.body.description
     })
 }
 
 exports.destroy = (req,res) => {
-    id=req.params.id
-    fs.readdir('views/artList/',(err,files)=>{
-        fs.unlink('views/artList/'+files[id],(err)=>{
-            res.redirect('/art')
-        })
-    })
+    removePost(req);
+    res.redirect('/art');
 }
 
+
 exports.getEditView = (req,res) => {
-    fs.readdir('./views/artList/',(err,files)=>{
-        fs.readFile('./views/artList/'+files[req.params.id],'utf8',(err,description)=>{
-            file = files[req.params.id].split('.')
-            res.render('edit',{
-                write:true,
-                subject:'art',
-                title:file[0],
-                description:description,
-                id:req.params.id,
-                loginedUser: req.session.loginedUser,
-                username: req.session.username
-            })
+    if (req.user){
+        var loginedUser = true;
+        var username = req.user.username;
+    } else {
+        var username = false;
+    }
+    getPost(req,(posts)=> {
+        var post = posts[req.params.id];
+        res.render('edit',{
+            write:true,
+            subject:'art',
+            title:post.title,
+            description:post.description,
+            id:req.params.id,
+            loginedUser: loginedUser,
+            username: username
         })
     })
 }
