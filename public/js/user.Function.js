@@ -10,11 +10,10 @@ exports.getUser = (email,callback) => {
     callback(user)
 }
 
-exports.addUser = (req, callback) => {
+exports.addUser = (req) => {
     this.getUser(req.body.email,(user)=>{
         if(user){
             user = false;
-            callback(user)
         } 
         else{
             db.get('users')
