@@ -2,18 +2,20 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
+const shortid = require('shortid')
 
 exports.checkHost = (username) => {
     var posts = db.get('posts').value()
     var i = 0;
-    if(username){
-        while(i<posts.length){
-            db.get(`posts`).find({author:username,host:false}).assign({host:true}).write()
-            i = i+1;
-        }
-    } else{
+    if(username == false) {
         while(i<posts.length){
             db.get('posts').find({host:true}).assign({host:false}).write()
+            i = i+1;
+        }
+    } else {
+        while(i<posts.length){
+            var target = db.get(`posts`).find({author:username,host:false}).value()
+            db.get(`posts`).find({author:username,host:false}).assign({host:true}).write()
             i = i+1;
         }
     }

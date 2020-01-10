@@ -6,7 +6,7 @@
       "description": "123",
       "subject": "art",
       "id": "lNd-Pzf8",
-      "host": true
+      "host": false
     },
     {
       "author": "well-balanced",
@@ -14,6 +14,14 @@
       "description": "124",
       "subject": "art",
       "id": "RZyT4nP9",
+      "host": true
+    },
+    {
+      "author": "woosik",
+      "title": "what is 'HTML' ?",
+      "description": "1234",
+      "subject": "art",
+      "id": "Q0QBa15C",
       "host": true
     }
   ],
@@ -23,6 +31,12 @@
       "email": "softkey95@gmail.com",
       "password": "softkei7&",
       "username": "well-balanced"
+    },
+    {
+      "fullname": "1234123",
+      "email": "12312",
+      "password": "123",
+      "username": "123123"
     }
   ]
 }

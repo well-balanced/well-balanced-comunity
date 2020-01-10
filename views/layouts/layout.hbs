@@ -58,8 +58,8 @@
     
     <ul class="navbar-nav ml-auto" id="profile">
     <li class="nav-item text-center">
-        {{#if loginedUser}}<span><a class="nav-link" href="#">{{username}} </a></span><span><a class="nav-link fas fa-lock-open fa-lg" href="/logout"></a></span>
-        {{else}}<a class="nav-link fas fa-lock fa-lg" href="../../login"></a>{{/if}}
+        {{#if loginedUser}}<span><a class="nav-link" href="#">{{username}} </a></span><span><a class="nav-link fas fa-lock-open fa-lg" href="/auth/logout"></a></span>
+        {{else}}<a class="nav-link fas fa-lock fa-lg" href="../../auth/login"></a>{{/if}}
     </li>
     </ul>
   </div>

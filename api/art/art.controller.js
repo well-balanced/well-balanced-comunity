@@ -43,7 +43,7 @@ exports.create = (req,res) => {
             id: postSize,
             loginedUser,
             username,
-        })  ;    
+        });    
     });
 };
 
